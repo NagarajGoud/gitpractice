@@ -1,0 +1,8 @@
+---
+-hosts: all
+ become: yes
+ tasks:
+  - name: copy module
+    copy:
+     src: /home/ansible/myinventory
+     dest: /home/ansible/myinventorycopy

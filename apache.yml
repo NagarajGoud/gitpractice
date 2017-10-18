@@ -1,0 +1,33 @@
+---
+- hosts: ubuntu
+  become: yes
+  tasks:
+  - name: update the cache
+    apt: 
+      name: update
+      update_cache: yes
+  - name: This will install apache2
+    apt:
+     name: apache2
+     state: present
+
+     ---
+     - hosts: ubuntu
+       become: yes
+       tasks:
+       - apt: 
+          name: tomcat7
+          state: present
+          update_cache: yes
+
+
+---
+-hosts: all
+ become: yes
+ tasks:
+  - name: copy module
+    copy:
+     src: /home/ansible/myinventory
+     dest: /home/ansible/myinventorycopy
+
+  
