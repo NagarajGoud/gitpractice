@@ -28,6 +28,6 @@ RUN yum update -y && \
 
 ################
 
-
-Docker run -it -p 8080:7080 mongo
+## command to run docker container###
+#Docker run -it -p 8080:7080 task1
 
