@@ -1,0 +1,33 @@
+
+########## This is a simple Docker file which installs python 2.7 mongodb3.2 and tomcat 7 on centos 7 base image ##############
+########## as the ask was to install those so used simple staright forward commands which serves the pusrpose and depending upon the requirement many arguements have to take part in the docker file accordingly :) ##########
+######### I deliberately made it to look simple ##############
+########### USed only one RUN docker to achieve the efficieny of docker image , since for each RUN command docker creates each layer and when we can achieve all these in one RUN command and to aviod this abstraction################ 
+FROM centos:centos7
+MAINTAINER nagoud111@gmail.com
+RUN yum update -y && \
+######### installing necessary packages ####################
+    yum install -y wget make && \
+######### https://wiki.centos.org/AdditionalResources/Repositories/SCL ############
+    yum install -y centos-release-scl && \
+    yum install -y  https://centos7.iuscommunity.org/ius-release.rpm && \
+    yum install -y gcc && \
+######### downlodaing python repository and unzipping and making it to insatll ###########
+    wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz && \
+    tar xzf Python-2.7.10.tgz && \
+    cd Python-2.7.10 && \
+    ./configure && \
+    make install && \
+############## creating mongodb repostory and installing it #################
+    echo -e "[mongodb-org-3.2]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.2/x86_64/repodata/repomd.xml\ngpgcheck=0\nenabled=1\ngpgkey=https://www.mongodb.org/static/pgp/server-3.2.asc" >/etc/yum.repos.d/mongodb-org.repo && \
+    yum install -y mongodb-org && \
+
+############# installing tomcat with simple yum command #################
+    yum install -y tomcat 7
+    Expose 8080
+
+################
+
+
+Docker run -it -p 8080:7080 mongo
+
